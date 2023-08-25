@@ -1,0 +1,44 @@
+<!-- Example form -->
+<h1 style="visibility: hidden;" id="h1">Sse registered</h1>
+<h1 style="visibility: hidden;" id="h2">Sse failed to register</h1>
+<form id="userForm">
+    <!-- Form fields -->
+    <!-- ... -->
+    <button type="submit" style="background-color: blueviolet; height: 45px; width: 200px ; border: 2px solid black; cursor:  pointer;">Add User</button>
+  </form>
+  <p style="visibility: hidden;" id="para"></p>
+  
+  <script>
+  document.getElementById('userForm').addEventListener('submit', function (event) {
+    event.preventDefault();
+  
+    // Collect form data
+    const formData = new FormData(this);
+  
+    // Make a POST request to add the user
+    fetch('/add', {
+      method: 'GET',
+      
+    })
+    .then(response => response.text())
+    .then(data => {
+      console.log('User added:', JSON.stringify(data));
+    })
+    .catch(error => {
+      console.error('Error adding user:', error);
+    });
+  });
+//   (registerSse =()=>{
+    const eventSource =new EventSource('make-subscription')
+    eventSource.onopen =(data)=>{console.log('opened',data)
+    document.getElementById('h1').style.visibility='unset'};
+    eventSource.onerror =(err)=>{console.log('err: ',err)
+    document.getElementById('h2').style.visibility='unset'}
+    eventSource.onmessage =(message)=>{console.log('message: ',message)
+    const rand =Math.random()
+    console.log(rand)
+    document.getElementById('h1').innerHTML=message.data 
+}
+//   })()
+  </script>
+  
